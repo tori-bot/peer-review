@@ -6,7 +6,16 @@ from .forms import ProfileForm
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    current_user = request.user
+    user=User.objects.get(id=current_user.id)
+    profile=Profile.get_profile_by_id(user.id)
+
+    context={
+        'user': user,
+        'profile': profile,
+    }
+
+    return render(request, 'home.html',context)
 
 def profile_form(request,id):
     user = User.objects.get(id=id)
@@ -17,7 +26,7 @@ def profile_form(request,id):
         if profile_form.is_valid():
             profile_form.save()
 
-            return redirect('profile')
+            return redirect('home')
         else:
             return HttpResponse('Please fill the form correctly.')
     else:
@@ -25,3 +34,15 @@ def profile_form(request,id):
             'profile_form': profile_form, 
         }
         return render(request,'profile_form.html',context)
+
+def profile(request):
+    current_user = request.user
+    user=User.objects.get(id=current_user.id)
+    profile=Profile.get_profile_by_id(user.id)
+# user's projects
+
+    context={
+        'profile': profile,
+        'user': user,
+    }
+    return render(request, 'profile.html', context)

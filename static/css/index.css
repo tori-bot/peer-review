@@ -1,12 +1,13 @@
-body{
-    background-color: black;
-    color: blueviolet;
 
-}
 .register_img{
     object-fit: cover;
 }
 .login_form{
     display: flex;
     align-items: center;
+}
+.profilepic{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
 }
