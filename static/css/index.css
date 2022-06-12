@@ -3,3 +3,10 @@ body{
     color: blueviolet;
 
 }
+.register_img{
+    object-fit: cover;
+}
+.login_form{
+    display: flex;
+    align-items: center;
+}
