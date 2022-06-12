@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from .models import Profile
 from django.contrib.auth.models import User
 from .forms import ProfileForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -46,3 +47,17 @@ def profile(request):
         'user': user,
     }
     return render(request, 'profile.html', context)
+
+@login_required
+def search(request):
+    if 'search' in request.GET and request.GET["search"]:
+        search_term = request.GET.get("search")
+        print(f'\n {search_term} \n')
+        searched_profiles = Profile.search_profile(search_term)
+        # print(searched_profiles)
+        message = f"{search_term}"
+        return render(request, 'search.html', {"message":message,"profiles": searched_profiles})
+    else:
+        message = "Take the chance to search for a profile"
+
+    return render(request, 'search.html', {'message': message})

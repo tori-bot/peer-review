@@ -8,6 +8,8 @@ urlpatterns = [
 
     path('profile_form/<int:id>/',views.profile_form,name='profile_form'),
     path('profile/',views.profile,name='profile'),
+
+    path('search/',views.search, name='search'),
 ]
 
 

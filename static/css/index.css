@@ -3,6 +3,8 @@
     color: white;
     height: 100vh;
     text-align: center;
+    position: sticky;
+    
 }
 .icon_button{
     background-color: transparent;
@@ -13,7 +15,7 @@
     margin: 1vh;
 }
 
-}
+
 .nav a{
     width: 100%;
     color: white;
@@ -41,4 +43,8 @@ a:hover{
     height: 150px;
     width: 150px;
     border-radius: 50%;
+}
+/* //////////////////////// */
+.search{
+    width: 30vw;
 }
