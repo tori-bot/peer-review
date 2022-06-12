@@ -40,3 +40,38 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user
+
+class Project(models.Model):
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='',default='default.png')
+    description=models.TextField()
+    git_url = models.URLField(max_length=200)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    published=models.DateTimeField(auto_now_add=True)
+
+    def save_picture(self):
+        self.save()
+
+    def delete_picture(self):
+        self.delete()
+
+    def update_project(self,title,image,description,git_url,user,published):
+        self.title=title
+        self.image=image
+        self.description=description
+        self.git_url=git_url
+        self.user=user
+        self.published=published
+        self.save()
+
+    @classmethod
+    def get_project_by_id(cls,id):
+        project=cls.objects.get(id=id)
+        return project
+
+    def search_project(cls,search_term):
+        projects=cls.objects.filter(title__icontains=search_term) 
+        return projects
+
+    def __str__(self):
+        return self.title
