@@ -1,4 +1,35 @@
+.sidebar{
+    background-color: black;
+    color: white;
+    height: 100vh;
+    text-align: center;
+}
+.icon_button{
+    background-color: transparent;
+    color: white;
+}
+.socials a{
+    width: 100%;
+    margin: 1vh;
+}
 
+}
+.nav a{
+    width: 100%;
+    color: white;
+    text-decoration: none;
+}
+a:hover{
+    color: #610F7F;
+}
+.profile_link{
+    width: 100%;
+    color: white;
+    text-decoration: none;
+}
+.span_text{
+    color: #610F7F;
+}
 .register_img{
     object-fit: cover;
 }
