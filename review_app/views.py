@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .models import Profile
 from django.contrib.auth.models import User
-from .forms import ProfileForm
+from .forms import ProfileForm, ProjectForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -73,3 +73,20 @@ def user_profile(request,username):
         'profile':profile,
     }
     return render(request,'user_profile.html',context)
+
+def upload_project(request):
+    current_user=request.user
+    upload=ProjectForm()
+    if request.method == 'POST':
+        upload=ProjectForm(request.POST,request.FILES)
+        if upload.is_valid():
+            upload.instance.user=current_user
+            upload.save()
+            return redirect('home')
+        else:
+            return HttpResponse('Please fill the form correctly')
+    else:
+        context={
+            'upload': upload,
+        }
+        return render(request,'upload_project.html',context)
