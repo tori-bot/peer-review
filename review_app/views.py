@@ -61,3 +61,15 @@ def search(request):
         message = "Take the chance to search for a profile"
 
     return render(request, 'search.html', {'message': message})
+
+def user_profile(request,username):
+    current_user=request.user
+    user=User.objects.get(username=current_user.username)
+    selected=User.objects.get(username=username)
+    if selected==user:
+        return redirect('home',username=current_user.username)
+
+    context={
+        'profile':profile,
+    }
+    return render(request,'user_profile.html',context)
