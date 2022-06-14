@@ -31,30 +31,50 @@ def home(request):
     return render(request, 'home.html', context)
 
 def technology(request):
+    current_user = request.user
+    user = User.objects.get(id=current_user.id)
+    profile = Profile.get_profile_by_id(user.id)
     projects=Project.objects.filter(category='technology').order_by('-published')
     context={
-        'projects': projects
+        'user': user,
+        'projects': projects,
+        'profile': profile
     }
     return render(request,'technology.html',context)
 
 def art(request):
+    current_user = request.user
+    user = User.objects.get(id=current_user.id)
+    profile = Profile.get_profile_by_id(user.id)
     projects=Project.objects.filter(category='art').order_by('-published')
     context={
-        'projects': projects
+        'user': user,
+        'projects': projects,
+        'profile': profile
     }
     return render(request,'art.html',context)
 
 def fashion(request):
+    current_user = request.user
+    user = User.objects.get(id=current_user.id)
+    profile = Profile.get_profile_by_id(user.id)
     projects=Project.objects.filter(category='fashion').order_by('-published')
     context={
-        'projects': projects
+        'user': user,
+        'projects': projects,
+        'profile': profile
     }
     return render(request,'fashion.html',context)
 
 def architecture(request):
+    current_user = request.user
+    user = User.objects.get(id=current_user.id)
+    profile = Profile.get_profile_by_id(user.id)
     projects=Project.objects.filter(category='architecture').order_by('-published')
     context={
-        'projects': projects
+        'user': user,
+        'projects': projects,
+        'profile': profile
     }
     return render(request,'architecture.html',context)
 
@@ -119,6 +139,21 @@ def user_profile(request, username):
     return render(request, 'user_profile.html', context)
 
 
+@login_required(login_url='/accounts/login/')
+def single_project(request,pk):
+    project=Project.objects.filter(id=pk).first()
+    try:
+        comments = Comment.objects.filter(project=project)
+    except Comment.DoesNotExist:
+        comments=None
+
+    context = {
+        'project':project,
+        "comments":comments
+        }
+    
+    return render(request,'single_project.html',context)   
+
 def upload_project(request):
     current_user = request.user
     user = User.objects.get(id=current_user.id)
@@ -139,6 +174,31 @@ def upload_project(request):
             'profile': profile
         }
         return render(request, 'upload_project.html', context)
+
+def project_update(request,project_id):
+    project_id=int(project_id)
+    try:
+        updated=Project.objects.get(id=project_id)
+    except Project.DoesNotExist:
+        return redirect('home')
+    project_form=ProjectForm(request.POST or None,instance=updated)
+    if project_form.is_valid():
+        project_form.save()
+        return redirect('home')
+    context={
+        'project_form':project_form,
+    }
+    return render(request, 'upload_project.html',context)
+
+def delete_project(request,project_id):
+    project_id=int(project_id)
+    try:
+        updated=Project.objects.get(id=project_id)
+    except Project.DoesNotExist:
+        return redirect('home')
+    updated.delete()
+    return redirect('home')
+
 
 # build api
 

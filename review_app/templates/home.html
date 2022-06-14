@@ -65,15 +65,15 @@
                   </form>
            
      
+    <a href="{% url 'upload_project' %} "><button class="pretty_button">Upload</button> </a>
 <hr>
-    <h1>Hello stranger! Welcome to Peer Reviews.Post your Projects here.</h1> 
-
     <div class="row">
       {% for item in projects %}
       <div class="col-md-4 ">
         <div class="card project">
           <img  src="{{item.image.url}}" class="card_image  img-responsive" alt="">
         <h3>{{item.title}} </h3>
+        <a href="{{item.git_url}}" class=""><button class="pretty_button">Go Live</button> </a>
         
         </div>
         

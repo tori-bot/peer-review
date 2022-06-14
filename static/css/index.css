@@ -55,3 +55,13 @@ a:hover{
 .project{
     margin-left: 2vw;
 }
+.pretty_button{
+    background-color: #610F7F;
+    color: white;
+    border-radius: 5px;
+    padding: 1vh 2vw;
+    
+}
+.pretty_button:hover{
+    background-color: #290025;
+}
