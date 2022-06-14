@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+{{block.super}}
+<div class="row">
+    <div  class="col-md-2 sidebar">
+        <h2>Peer<span class="span_text">Reviews</span> </h2>
+        <br>
+        {% if profile.profile_picture %}
+        <img class="profilepic" src="{{profile.profile_picture.url}} " alt="profilepic">
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-8">
+                <a class="profile_link" href="{% url 'profile' %}"><h3>{{user.username}} </h3></a>
+                
+            </div>
+            <div class="col-md-4">
+              <a class="icon_button" href="{% url 'profile_form' user.id %} "><i class="bi bi-pencil-fill"></i> </a>  
+            </div>
+        </div>
+
+        <hr>
+        <div class="nav">
+            
+              <a aria-current="page" href="/">HOME </a>
+              <hr>
+            
+              <a  href="#">ABOUT US </a>
+            <hr>
+              <a class="cat" href=" {% url 'technology' %}">TECHNOLOGY </a>
+            <hr>
+            <a class="cat" href="{% url 'art' %}">ART </a>
+            <hr>
+            <a class="cat" href="{% url 'fashion' %}">FASHION </a>
+            <hr>
+            <a class="cat" href="{% url 'architecture' %}">ARCHITECTURE </a>
+            <hr>
+            <a  href="{% url 'api' %} " >API </a>
+              <hr>
+              <a  href="#" >CONTACT US </a>
+              <hr>
+              
+              <div class="socials">
+                <a href="https://www.instagram.com/torimakena/"><i class="bi bi-instagram"></i></a>
+                <a href="https://twitter.com/Tori_makena"><i class="bi bi-twitter"></i></a>
+                <a href="https://github.com/tori-bot"><i class="bi bi-github"></i></a>
+                <a href="https://web.facebook.com/tori.makena.98"><i class="bi bi-facebook"></i></a>
+                <a href="https://wa.me/message/QVIDZP3PKX2XP1"><i class="bi bi-whatsapp"></i></a> 
+                <a href="mailto:makenavictoria1@gmail.com"><i class="bi bi-envelope"></i></a> 
+                </div>
+              
+        </div>
+          
+    </div>
+    
+    
+
+    <div class="col-md-9">
+        
+              <h1>Welcome {{user.username}}...</h1>   
+            
+                <form class="d-flex search" action="{% url 'search' %}">
+                    <input class="form-control me-2" type="search" name='search' placeholder="Search" aria-label="Search">
+                    <button id="search" class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+                  </form>
+           
+     
+    <a href="{% url 'upload_project' %} "><button class="pretty_button">Upload</button> </a>
+<hr>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 ">
+        <div class="card project">
+          <img  src="{{project.image.url}}" class="card_image  img-responsive" alt="">
+        <h3>{{project.title}} </h3>
+        <p>{{project.description}} </p>
+        <a href="{{project.git_url}}" class=""><button class="pretty_button">Go Live</button> </a>
+        <a href="{% url 'project_update' %}" class=""><button class="pretty_button">Update</button> </a>
+        <a href="{% url 'delete_project' %}" class=""><button class="pretty_button">Delete</button> </a>
+        
+        </div>
+        
+      </div>
+      <div class="col-md-3"></div>
+
+    
+    </div>
+    
+    
+    
+
+    <div class="footer">
+        <a>tori-bot   &copy 2022   Victoria Makena</a>
+    
+    </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

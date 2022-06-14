@@ -9,6 +9,9 @@ urlpatterns = [
     path('project_update/<project_id>',views.project_update,name='project_update'),
     path('delete_project/<project_id>',views.delete_project,name='delete_project'),
 
+    path('single_project/<int:pk>/',views.single_project, name='single_project'),
+    path('add_comment/<int:project_id>/',views.comment, name='comment'),
+
     path('profile_form/<int:id>/', views.profile_form, name='profile_form'),
     path('profile/', views.profile, name='profile'),
     path('user_profile/<str:username>/',

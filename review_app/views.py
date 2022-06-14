@@ -1,7 +1,7 @@
 from urllib.request import Request
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from .models import Profile, Project
+from .models import Profile, Project,Comment
 from django.contrib.auth.models import User
 from .forms import ProfileForm, ProjectForm
 from django.contrib.auth.decorators import login_required
@@ -152,7 +152,24 @@ def single_project(request,pk):
         "comments":comments
         }
     
-    return render(request,'single_project.html',context)   
+    return render(request,'single_project.html',context)  
+
+@login_required(login_url='/accounts/login/')
+def comment(request,project_id):
+    current_user = request.user
+    if request.method == 'POST':
+        comment= request.POST.get('comment')
+    project = Project.objects.get(id=project_id)
+    user_profile = User.objects.get(username=current_user.username)
+    new_comment,created=Comment.objects.get_or_create(
+         content=comment,
+         project = project,
+         user=user_profile   
+        )
+    new_comment.save()
+
+    return redirect('onepic' ,pk=project_id)
+ 
 
 def upload_project(request):
     current_user = request.user
