@@ -84,3 +84,27 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+class Comment(models.Model):
+    user=models.ForeignKey(User,null=True,on_delete=models.CASCADE)
+    content=models.TextField()
+    published=models.DateTimeField(auto_now_add=True)
+    project=models.ForeignKey(Project, on_delete=models.CASCADE,default=0)
+    # parent_comment=models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True)
+
+    def save_comment(self):
+        self.save()
+
+    def delete_comment(self):
+        self.delete()
+
+    @classmethod
+    def get_comments_by_project_id(cls, id):
+        comments = Comment.objects.filter(project__id=id)
+        return comments
+
+    class Meta:
+        ordering = ["-pk"]
+
+    def __str__(self):
+        return self.content
