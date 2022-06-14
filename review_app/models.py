@@ -1,3 +1,4 @@
+from sre_parse import CATEGORIES
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -41,13 +42,21 @@ class Profile(models.Model):
     def __str__(self):
         return self.user
 
+
+CATEGORIES=(
+    ('technology', 'technology'),
+    ('art', 'art'),
+    ('fashion', 'fashion'),
+    ('architecture', 'architecture'),
+)
 class Project(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='',default='default.png')
+    image = models.ImageField(upload_to='images/',default='default.png')
     description=models.TextField()
     git_url = models.URLField(max_length=200)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     published=models.DateTimeField(auto_now_add=True)
+    category=models.CharField(max_length=30,choices=CATEGORIES,default='technology',null=True)
 
     def save_picture(self):
         self.save()

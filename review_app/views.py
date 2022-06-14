@@ -1,19 +1,23 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from .models import Profile
+from .models import Profile,Project
 from django.contrib.auth.models import User
 from .forms import ProfileForm, ProjectForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def home(request):
     current_user = request.user
     user=User.objects.get(id=current_user.id)
     profile=Profile.get_profile_by_id(user.id)
+    projects=Project.objects.all().order_by('-published')
+
 
     context={
         'user': user,
         'profile': profile,
+        'projects': projects
     }
 
     return render(request, 'home.html',context)
@@ -75,7 +79,9 @@ def user_profile(request,username):
     return render(request,'user_profile.html',context)
 
 def upload_project(request):
-    current_user=request.user
+    current_user = request.user
+    user=User.objects.get(id=current_user.id)
+    profile=Profile.get_profile_by_id(user.id)
     upload=ProjectForm()
     if request.method == 'POST':
         upload=ProjectForm(request.POST,request.FILES)
@@ -88,5 +94,7 @@ def upload_project(request):
     else:
         context={
             'upload': upload,
+            'user': user,
+            'profile': profile
         }
         return render(request,'upload_project.html',context)

@@ -65,6 +65,18 @@
      
 <hr>
     <h1>Hello stranger! Welcome to Peer Reviews.Post your Projects here.</h1> 
+
+    <div class="row">
+      {% for item in projects %}
+      <div class="col-md-4">
+        <img  src="{{item.image.url}}" class="card_image  img-responsive" alt="">
+        <h3>{{item.title}} </h3>
+        
+      </div>
+
+    {% endfor %}
+    </div>
+    
     
     
 

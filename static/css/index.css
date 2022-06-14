@@ -48,3 +48,7 @@ a:hover{
 .search{
     width: 30vw;
 }
+.card_image{
+    object-fit: cover;
+    height: 30vh;
+}
