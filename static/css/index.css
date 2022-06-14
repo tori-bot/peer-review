@@ -52,3 +52,6 @@ a:hover{
     object-fit: cover;
     height: 30vh;
 }
+.project{
+    margin-left: 2vw;
+}

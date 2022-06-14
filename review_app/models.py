@@ -51,7 +51,7 @@ CATEGORIES=(
 )
 class Project(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='images/',default='default.png')
+    image = models.ImageField(upload_to='images/',default='default.jpg')
     description=models.TextField()
     git_url = models.URLField(max_length=200)
     user=models.ForeignKey(User,on_delete=models.CASCADE)

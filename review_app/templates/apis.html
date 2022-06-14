@@ -22,21 +22,19 @@
         <hr>
         <div class="nav">
             
-              <a aria-current="page" href="/">HOME </a>
+              <a aria-current="page" href="#">HOME </a>
               <hr>
             
               <a  href="#">ABOUT US </a>
             <hr>
-              <a class="cat" href=" {% url 'technology' %}">TECHNOLOGY </a>
+              <a class="cat" href="#">TECHNOLOGY </a>
             <hr>
-            <a class="cat" href="{% url 'art' %}">ART </a>
+            <a class="cat" href="#">ART </a>
             <hr>
-            <a class="cat" href="{% url 'fashion' %}">FASHION </a>
+            <a class="cat" href="#">FASHION </a>
             <hr>
-            <a class="cat" href="{% url 'architecture' %}">ARCHITECTURE </a>
+            <a class="cat" href="#">ARCHITECTURE </a>
             <hr>
-            <a  href="{% url 'api' %} " >API </a>
-              <hr>
               <a  href="#" >CONTACT US </a>
               <hr>
               
@@ -55,43 +53,18 @@
     
     
 
-    <div class="col-md-9">
-        
-              <h1>Welcome {{user.username}}...</h1>   
-            
-                <form class="d-flex search" action="{% url 'search' %}">
-                    <input class="form-control me-2" type="search" name='search' placeholder="Search" aria-label="Search">
-                    <button id="search" class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-                  </form>
-           
-     
-<hr>
-    <h1>Hello stranger! Welcome to Peer Reviews.Post your Projects here.</h1> 
+    <div class="col-md-9">Welcome to Peer Review API </h2>
+      <br/>
+        <a href="{% url 'projects' %} ">projects endpoint</a>
+        <hr>
+        <a href="{% url 'profiles' %} ">profiles endpoint</a>
 
-    <div class="row">
-      {% for item in projects %}
-      <div class="col-md-4 ">
-        <div class="card project">
-          <img  src="{{item.image.url}}" class="card_image  img-responsive" alt="">
-        <h3>{{item.title}} </h3>
-        
+  <label for="customRange1" class="form-label">Example range</label>
+  <input type="range" class="form-range" id="customRange1"></div>
         </div>
-        
-      </div>
 
-    {% endfor %}
+
     </div>
-    
-    
-    
-
-    <div class="footer">
-        <a>tori-bot   &copy 2022   Victoria Makena</a>
-    
-    </div>
-    </div>
-</div>
-
-
+  
 
 {% endblock %}
