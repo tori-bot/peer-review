@@ -5,6 +5,14 @@ from django.contrib.auth.models import User
 from .forms import ProfileForm, ProjectForm
 from django.contrib.auth.decorators import login_required
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
+#handle all the status code responses.
+from .models import  Profile,Project
+from .serializer import ProjectSerializer,ProfileSerializer
+
+
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def home(request):
@@ -98,3 +106,45 @@ def upload_project(request):
             'profile': profile
         }
         return render(request,'upload_project.html',context)
+
+# build api
+class ProjectView(APIView):
+     #APIView as a base class for our API view function.
+    def get(self, request, format=None):
+        #define a get method where we query the database to get all the objects
+        all_projects = Project.objects.all()
+        #serialize the Django model objects and return the serialized data as a response.
+        serializers = ProjectSerializer(all_projects, many=True)
+        return Response(serializers.data)
+
+
+    def post(self, request, format=None):
+        # post method will be triggered when we are getting form data
+        serializers = ProjectSerializer(data=request.data)
+        # serialize the data in the request
+        if serializers.is_valid():
+            # If valid we save the new data to the database and return the appropriate status code.
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileView(APIView):
+     #APIView as a base class for our API view function.
+    def get(self, request, format=None):
+        #define a get method where we query the database to get all the objects
+        all_projects = Profile.objects.all()
+        #serialize the Django model objects and return the serialized data as a response.
+        serializers = ProfileSerializer(all_projects, many=True)
+        return Response(serializers.data)
+
+
+    def post(self, request, format=None):
+        # post method will be triggered when we are getting form data
+        serializers = ProfileSerializer(data=request.data)
+        # serialize the data in the request
+        if serializers.is_valid():
+            # If valid we save the new data to the database and return the appropriate status code.
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
