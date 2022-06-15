@@ -156,7 +156,7 @@ def user_profile(request, id):
     print({selected})
 
     if selected == user:
-        return redirect('profile', id=current_user.id)
+        return redirect('home', id=current_user.id)
     
     profile=Profile.get_profile_by_id(selected.id)
     projects=Project.objects.filter(user=selected.id)

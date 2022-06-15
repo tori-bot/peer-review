@@ -60,6 +60,7 @@ a:hover{
 .project{
     margin-left: 2vw;
     border: none;
+    margin-bottom: 3vh;
 }
 .pretty_button{
     background-color: transparent;
