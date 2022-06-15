@@ -37,7 +37,7 @@ Run these commands on the terminal during setup:
 * Test the application ```python3 manage.py test```
 * Run the server on local machine ```python3 manage.py runserver```
 * Follow the local host link ```127.0.0.1:8000``` to view application on your browser.
-* For instrictions on deployment to Heroku follow this document [Heroku deployment](https://gist.github.com/newtonkiragu/42f2500e56d9c2375a087233587eddd0)
+* For instructions on deployment to Heroku follow this document [Heroku deployment](https://gist.github.com/newtonkiragu/42f2500e56d9c2375a087233587eddd0)
 
 ## Built with
 * Django 4
