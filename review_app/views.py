@@ -1,6 +1,6 @@
 from urllib.request import Request
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Profile, Project,Comment
 from django.contrib.auth.models import User
 from .forms import ProfileForm, ProjectForm
@@ -29,6 +29,18 @@ def home(request):
     }
 
     return render(request, 'home.html', context)
+
+def about(request):
+    current_user = request.user
+    user = User.objects.get(id=current_user.id)
+    profile = Profile.get_profile_by_id(user.id)
+    
+    context={
+        'user': user,
+        
+        'profile': profile
+    }
+    return render(request,'about.html',context)
 
 def technology(request):
     current_user = request.user
@@ -94,6 +106,8 @@ def profile_form(request, id):
     else:
         context = {
             'profile_form': profile_form,
+            'user': user,
+            'profile': profile
         }
         return render(request, 'profile_form.html', context)
 
@@ -102,11 +116,12 @@ def profile(request):
     current_user = request.user
     user = User.objects.get(id=current_user.id)
     profile = Profile.get_profile_by_id(user.id)
-# user's projects
+    projects=Project.objects.filter(user=user.id).order_by('-published')
 
     context = {
         'profile': profile,
         'user': user,
+        'projects': projects
     }
     return render(request, 'profile.html', context)
 
@@ -126,21 +141,30 @@ def search(request):
     return render(request, 'search.html', {'message': message})
 
 
-def user_profile(request, username):
+def user_profile(request, id):
     current_user = request.user
-    user = User.objects.get(username=current_user.username)
-    selected = User.objects.get(username=username)
+    user = User.objects.get(id=current_user.id)
+    selected = get_object_or_404(User, id= id)
+    #selected = User.objects.get(username=username)
+
     if selected == user:
-        return redirect('home', username=current_user.username)
+        return redirect('profile', id=current_user.id)
+    
+    profile=Profile.get_profile_by_id(selected.id)
+    projects=profile.objects.filter(user=selected.id)
 
     context = {
         'profile': profile,
+        'projects': projects
     }
     return render(request, 'user_profile.html', context)
 
 
 @login_required(login_url='/accounts/login/')
 def single_project(request,pk):
+    current_user = request.user
+    user = User.objects.get(id=current_user.id)
+    profile = Profile.get_profile_by_id(user.id)
     project=Project.objects.filter(id=pk).first()
     try:
         comments = Comment.objects.filter(project=project)
@@ -149,7 +173,9 @@ def single_project(request,pk):
 
     context = {
         'project':project,
-        "comments":comments
+        "comments":comments,
+        'profile':profile,
+        'user':user
         }
     
     return render(request,'single_project.html',context)  
@@ -168,7 +194,7 @@ def comment(request,project_id):
         )
     new_comment.save()
 
-    return redirect('onepic' ,pk=project_id)
+    return redirect('single_project' ,pk=project_id)
  
 
 def upload_project(request):
@@ -193,6 +219,9 @@ def upload_project(request):
         return render(request, 'upload_project.html', context)
 
 def project_update(request,project_id):
+    current_user = request.user
+    user = User.objects.get(id=current_user.id)
+    profile = Profile.get_profile_by_id(user.id)
     project_id=int(project_id)
     try:
         updated=Project.objects.get(id=project_id)
@@ -204,6 +233,8 @@ def project_update(request,project_id):
         return redirect('home')
     context={
         'project_form':project_form,
+        'user':user,
+        'profile':profile
     }
     return render(request, 'upload_project.html',context)
 
@@ -265,5 +296,11 @@ class ProfileView(APIView):
 class ApiList(APIView):
 
     def get(self, request, format=None):
-
-        return render(request, "apis.html")
+        current_user = request.user
+        user = User.objects.get(id=current_user.id)
+        profile = Profile.get_profile_by_id(user.id)
+        context={
+            'user': user,
+            'profile': profile
+        }
+        return render(request, "apis.html",context)

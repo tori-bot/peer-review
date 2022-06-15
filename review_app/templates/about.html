@@ -1,5 +1,3 @@
-
-
 {% extends 'base.html' %}
 {% block content %}
 {{block.super}}
@@ -27,7 +25,7 @@
           <a aria-current="page" href="/">HOME </a>
           <hr>
         
-          <a  href="{% url 'about' %}">ABOUT US </a>
+          <a  href="#">ABOUT US </a>
         <hr>
           <a class="cat" href=" {% url 'technology' %}">TECHNOLOGY </a>
         <hr>
@@ -75,25 +73,16 @@
            
      
     <a href="{% url 'upload_project' %} "><button class="pretty_button">Upload</button> </a>
-           
-     
 <hr>
-     
-<h1>Technology.</h1>
-<br>
     <div class="row">
-      {% for item in projects %}
-      <div class="col-md-4 ">
-          <div class="card project">
-            <img  src="{{item.image.url}}" class="card_image  img-responsive" alt="">
-            <h3>{{item.title}} </h3>
-          </div>
-        
-        
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+          <h1>About<span class="span_text">Us</span></h1>
+          <hr>
+          <p>This is a space for creatives to showcase their talents.</p>
+          <p>Posted projects are peer reviewed and the best ones in every category are awarded bragging rights and a chance to monetize their project.</p>
       </div>
-      {% empty %}
-      <h2>No posts yet!</h2>
-    {% endfor %}
+      <div class="col-md-2"></div>
     </div>
     
     

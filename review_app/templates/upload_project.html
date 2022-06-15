@@ -12,7 +12,7 @@
 
     <div class="row">
         <div class="col-md-8">
-            <a class="profile_link" href="{% url 'profile' %}"><h3>{{user.username}} </h3></a>
+            <a class="profile_link" href="{% url 'profile' %}"><h5>{{user.username}} </h5></a>
             
         </div>
         <div class="col-md-4">
@@ -23,19 +23,21 @@
     <hr>
     <div class="nav">
         
-          <a aria-current="page" href="#">HOME </a>
+          <a aria-current="page" href="/">HOME </a>
           <hr>
         
-          <a  href="#">ABOUT US </a>
+          <a  href="{% url 'about' %}">ABOUT US </a>
         <hr>
-          <a class="cat" href="#">TECHNOLOGY </a>
+          <a class="cat" href=" {% url 'technology' %}">TECHNOLOGY </a>
         <hr>
-        <a class="cat" href="#">ART </a>
+        <a class="cat" href="{% url 'art' %}">ART </a>
         <hr>
-        <a class="cat" href="#">FASHION </a>
+        <a class="cat" href="{% url 'fashion' %}">FASHION </a>
         <hr>
-        <a class="cat" href="#">ARCHITECTURE </a>
+        <a class="cat" href="{% url 'architecture' %}">ARCHITECTURE </a>
         <hr>
+        <a  href="{% url 'api' %} " >API </a>
+          <hr>
           <a  href="#" >CONTACT US </a>
           <hr>
           
@@ -52,6 +54,23 @@
       
 </div>
   <div class="col-md-9">
+    <div class="row heads">
+      <div class="col-md-4"><h3>Welcome <span class="span_text">{{user.username}}</span></h3>  </div>
+      <div class="col-md-2"></div>
+
+      <div class="col-md-4"> <form class="d-flex search" action="{% url 'search' %}">
+                  <input class="form-control me-2" type="search" name='search' placeholder="Search" aria-label="Search">
+                  <button id="search" class="search_button" type="submit"><i class="bi bi-search"></i></button>
+                </form></div>
+    </div>
+      
+             
+          
+             
+         
+   
+  <a href="{% url 'upload_project' %} "><button class="pretty_button">Upload</button> </a>
+    <hr>
     <h1>Upload a Project </h1>
 
 
@@ -64,6 +83,10 @@
     <input type="submit" class="btn btn-success btn-lg" value="Post">
   </form>
   </div>
+  <div class="footer">
+    <a>tori-bot   &copy 2022   Victoria Makena</a>
+
+</div>
 </div>
 
 {% endblock %}
