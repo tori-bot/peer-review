@@ -62,7 +62,7 @@
         <div class="col-md-2"></div>
 
         <div class="col-md-4"> <form class="d-flex search" action="{% url 'search' %}">
-                    <input class="form-control me-2" type="search" name='search' placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" type="search" name='search' placeholder="Profile Search" aria-label="Search">
                     <button id="search" class="search_button" type="submit"><i class="bi bi-search"></i></button>
                   </form></div>
       </div>
@@ -76,7 +76,22 @@
            
      
 <hr>
-    <h1>searched stuff</h1> 
+    <h1>Search<span class="span_text">Results</span> </h1>
+    <div class="row">
+      {% for item in profiles %}
+      <div class="col-md-3">
+        <div class="card searched">
+          <a href="{% url 'user_profile' item.user.id %} "><img class="profilepic" src="{{item.profile_picture.url}}" class="img-responsive" alt=""></a>
+          
+          <h4>{{item.user.username}} </h4>
+          <p>{{item.bio}} </p>
+
+        </div>
+      </div>
+      {% empty %}
+      <h2>No profiles that match your search</h2>
+      {% endfor %}
+    </div> 
     
     
 

@@ -24,14 +24,14 @@
             {% csrf_token %}
             {% bootstrap_form form %}
             <div class="form-group">
-              <input type="submit" class="btn  btn-sm btn-primary" value="Sign Up">
+              <input type="submit" class="pretty_button" value="Sign Up">
             </div>
 
             <input type="hidden" name="next" value="{{next}}">
 
           </form>
           <br>
-          <a href="/accounts/login/">Already have an account.</a>
+          <a class="user_link" href="/accounts/login/">Already have an account.</a>
           
 
         </div>

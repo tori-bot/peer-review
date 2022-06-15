@@ -56,13 +56,13 @@
     
 
     <div class="col-md-9">
-      <h2>Welcome to Peer Review API </h2>
+      
       <div class="row heads">
         <div class="col-md-4"><h3>Welcome <span class="span_text">{{user.username}}</span></h3>  </div>
         <div class="col-md-2"></div>
 
         <div class="col-md-4"> <form class="d-flex search" action="{% url 'search' %}">
-                    <input class="form-control me-2" type="search" name='search' placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" type="search" name='search' placeholder="Profile Search" aria-label="Search">
                     <button id="search" class="search_button" type="submit"><i class="bi bi-search"></i></button>
                   </form></div>
       </div>
@@ -74,12 +74,17 @@
      
     <a href="{% url 'upload_project' %} "><button class="pretty_button">Upload</button> </a>
       <hr/>
-        <a href="{% url 'projects' %} ">projects endpoint</a>
+<h1>The<span class="span_text">API</span></h1>
+        <a class="user_link" href="{% url 'projects' %} ">projects endpoint</a>
+        <br>
+        <p>This endpoint is used to access all projects in the Peer Reviews database. A user needs to only have a token to acess and use this data. </p>
         <hr>
-        <a href="{% url 'profiles' %} ">profiles endpoint</a>
+        <a class="user_link" href="{% url 'profiles' %} ">profiles endpoint</a>
+        <br>
+        <p>Ihis endpoint is for all profiles in the Peer Review database. Get your token to access this data. </p>
+        <hr>
 
-  <label for="customRange1" class="form-label">Example range</label>
-  <input type="range" class="form-range" id="customRange1">
+  
 
   <div class="footer">
     <a>tori-bot   &copy 2022   Victoria Makena</a>

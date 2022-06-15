@@ -62,7 +62,7 @@
         <div class="col-md-2"></div>
 
         <div class="col-md-4"> <form class="d-flex search" action="{% url 'search' %}">
-                    <input class="form-control me-2" type="search" name='search' placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" type="search" name='search' placeholder="Profile Search" aria-label=" Search">
                     <button id="search" class="search_button" type="submit"><i class="bi bi-search"></i></button>
                   </form></div>
       </div>
@@ -74,7 +74,7 @@
      
     <a href="{% url 'upload_project' %} "><button class="pretty_button">Upload</button> </a>
 <hr>
-<h1>Latest posts.</h1>
+<h1>Latest<span class="span_text">Posts</span></h1>
     <div class="row">
       {% for item in projects %}
       <div class="col-md-4 ">

@@ -128,34 +128,45 @@ def profile(request):
 
 @login_required
 def search(request):
+    current_user = request.user
+    user = User.objects.get(id=current_user.id)
+    profile = Profile.get_profile_by_id(user.id)
     if 'search' in request.GET and request.GET["search"]:
         search_term = request.GET.get("search")
         print(f'\n {search_term} \n')
         searched_profiles = Profile.search_profile(search_term)
-        # print(searched_profiles)
-        message = f"{search_term}"
-        return render(request, 'search.html', {"message": message, "profiles": searched_profiles})
+        message = f"{search_term}"    
     else:
-        message = "Take the chance to search for a profile"
+        message = "Take this chance to search for a profile"
 
-    return render(request, 'search.html', {'message': message})
+    context={
+        'message': message,
+        'profiles': searched_profiles,
+        'user': user,
+        'profile': profile
+        }
+    return render(request, 'search.html',context)
 
 
 def user_profile(request, id):
     current_user = request.user
     user = User.objects.get(id=current_user.id)
+    current_profile = Profile.get_profile_by_id(user.id)
     selected = get_object_or_404(User, id= id)
-    #selected = User.objects.get(username=username)
+    print({selected})
 
     if selected == user:
         return redirect('profile', id=current_user.id)
     
     profile=Profile.get_profile_by_id(selected.id)
-    projects=profile.objects.filter(user=selected.id)
+    projects=Project.objects.filter(user=selected.id)
 
     context = {
         'profile': profile,
-        'projects': projects
+        'projects': projects,
+        'user': user,
+        'current_profile': current_profile
+
     }
     return render(request, 'user_profile.html', context)
 
@@ -256,8 +267,7 @@ class ProjectView(APIView):
     def get(self, request, format=None):
         # define a get method where we query the database to get all the objects
         all_projects = Project.objects.all()
-        # print({all_projects})
-        # all_projects=list(all_projects)
+
         # serialize the Django model objects and return the serialized data as a response.
         serializers = ProjectSerializer(all_projects, many=True)
         return Response(serializers.data)

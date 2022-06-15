@@ -45,6 +45,7 @@ a:hover{
     height: 150px;
     width: 150px;
     border-radius: 50%;
+    
 }
 /* //////////////////////// */
 .search{
@@ -52,8 +53,9 @@ a:hover{
 }
 .card_image{
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     height: 30vh;
+    margin-bottom: 2vh;
 }
 .project{
     margin-left: 2vw;
@@ -69,6 +71,11 @@ a:hover{
 }
 .pretty_button:hover{
     background-color: #ED254E;
+}
+.searched{
+    text-align: center;
+    padding: 0vh 1vw;
+    margin-left: 2vw;
 }
 .footer{
     text-align: center;
