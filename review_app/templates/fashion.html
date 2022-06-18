@@ -37,6 +37,8 @@
         <hr>
         <a  href="{% url 'api' %} " >API </a>
           <hr>
+          <a  href="/logout" >LOGOUT </a>
+          <hr>
           <a  href="#" >CONTACT US </a>
           <hr>
           
@@ -79,20 +81,33 @@
      
 <h1>Fashion.</h1>
 <br>
+<div class="row">
+  {% for item in projects %}
+  <div class="col-md-4 ">
+    
+    
+    <div class="card project">
+      <a href="{% url 'single_project' item.id %} ">
+     <img  src="{{item.image.url}}" class="card_image  img-responsive" alt="">
+    </a>
     <div class="row">
-      {% for item in projects %}
-      <div class="col-md-4 ">
-          <div class="card project">
-            <img  src="{{item.image.url}}" class="card_image  img-responsive" alt="">
-            <h3>{{item.title}} </h3>
-          </div>
-        
-        
+      <div class="col-md-2">
+        <img class="tinypic" src="{{item.user.profile.profile_picture.url}} " alt="profilepic">
       </div>
-      {% empty %}
-<h2>No posts yet!</h2>
-    {% endfor %}
+      <div class="col-md-5"><a class="user_link" href="{% url 'user_profile' item.user.id %} "><p>{{item.user.username}}</p></a></div>
     </div>
+    
+      
+    <h4>{{item.title}} </h4>
+    
+    <a href="{{item.git_url}}" class=""><button class="pretty_button">Go Live</button> </a>
+    
+    </div> 
+  </div>
+  {% empty %}
+<h2>No posts yet!</h2>
+{% endfor %}
+</div>
     
     
     

@@ -50,12 +50,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'review_app',
+
     'bootstrap5',
     'bootstrapform',
     "crispy_forms",
-    "crispy_bootstrap5",
+    "crispy_bootstrap5"
+    ,
     'rest_framework',
+
+    # 'django.contrib.staticfiles',
+    # 'cloudinary_storage',
+    # 'cloudinary',
 ]
+
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': 'your_cloud_name',
+#     'API_KEY': 'your_api_key',
+#     'API_SECRET': 'your_api_secret'
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
